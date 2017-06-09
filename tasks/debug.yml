@@ -5,7 +5,7 @@
 #
 
 - debug:
-    var="{{ item }}"
+    var: "{{ item }}"
   when: "{{ item }} is defined"
   with_items:
     - grafana_admin_password
