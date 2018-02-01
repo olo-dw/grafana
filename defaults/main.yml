@@ -4,6 +4,7 @@
 # defaults file
 #
 
+grafana_admin_password: admin
 grafana_admin_user: admin
 grafana_conf_file: /etc/grafana/grafana.ini
 grafana_dir_conf: /etc/grafana
@@ -11,6 +12,8 @@ grafana_dir_data: /var/lib/grafana
 grafana_dir_home: /usr/share/grafana
 grafana_dir_log: /var/log/grafana
 grafana_dir_plugins: /var/lib/grafana/plugins
+grafana_pid_file_dir: /var/run/grafana
+grafana_pid_file: /var/run/grafana/grafana-server.pid
 grafana_http_port: 3000
 grafana_group: grafana
 grafana_user: grafana
@@ -96,3 +99,5 @@ grafana_default:
   max_open_files: 10000
   plugins_dir: "{{ grafana_dir_plugins }}"
   restart_on_upgrade: 'false'
+  pid_file_dir: "{{ grafana_pid_file_dir }}"
+  pid_file: "{{ grafana_pid_file }}"

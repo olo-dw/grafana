@@ -51,7 +51,7 @@
 
 - name: Ensure integrity of grafana configuration.
   template:
-    src: etc/grafana/grafana.ini.j2
+    src: 'grafana.ini.j2'
     dest: "{{ grafana_conf_file }}"
     owner: "{{ grafana_user }}"
     group: "{{ grafana_group }}"
@@ -62,8 +62,8 @@
 
 - name: Ensure integrity of grafana configuration.
   template:
-    src: etc/default/grafana-server.j2
-    dest: /etc/default/grafana-server
+    src: 'grafana-server.j2'
+    dest: '/etc/default/grafana-server'
     owner: "{{ grafana_user }}"
     group: "{{ grafana_group }}"
     mode: 0644
@@ -71,6 +71,15 @@
   notify: restart grafana
   tags: configuration
 
+- name: Ensure grafana pid directory is present.
+  file:
+    path="{{ grafana_pid_file_dir }}"
+    owner="{{ grafana_user }}"
+    group="{{ grafana_group }}"
+    mode=0755
+    state=directory
+  become: yes
+    
 - name: Ensure grafana directories ownership and permissions.
   file:
     path: "{{ item }}"
@@ -85,6 +94,7 @@
     - "{{ grafana_dir_home }}"
     - "{{ grafana_dir_log }}"
     - "{{ grafana_dir_plugins }}"
+    - "{{ grafana_pid_file_dir }}"
 
 - name: Ensure grafana is running and enabled to start on boot.
   service:
